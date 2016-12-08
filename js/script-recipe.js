@@ -12,8 +12,16 @@ $(document).ready(function() {
 		console.log('Quite clase make');
 		$('.page.recipe').removeClass('make');
 
-		
 		$('.js-show-recipe').addClass('active');
 		$('.js-show-make').removeClass('active');
 
 	});
+
+	$('.js-show-make').on('click', function() {
+		console.log('Agregue clase make');
+		$('.page.recipe').addClass('make');
+		
+		$('.js-show-make').addClass('active');
+		$('.js-show-recipe').removeClass('active');
+	});
+});

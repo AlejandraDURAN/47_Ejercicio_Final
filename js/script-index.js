@@ -2,14 +2,12 @@ $(document).ready( function() {
 
 	//oculta la flecha de menu
 	$('.js-back').hide();
-	//Llamo a la función que pinta en el elemento p 
+	 
 	printNews();
-
 	renderHighlightedRecipes(recipesArray);
 	renderActivities(activities);
 
 });
-
 
 function printNews() {
 	$(".callout-news p").text("NUEVAS RECETAS");
@@ -17,18 +15,18 @@ function printNews() {
 
 function renderHighlightedRecipes(recipesArray) {
 	console.log('Recipes: ', recipesArray);
-	//array
 	for ( var i = 0; i < recipesArray.length; i++ ) {
-		//guarda
+		//guarda en una variable
 		var recipe = recipesArray[i];
-		//condicion 
 		if( recipe.highlighted == true ) {
 			renderRecipe(recipe);
 		}
 	}
-	function renderRecipe(recipe) {
+
+}
+
+function renderRecipe(recipe) {
 	console.log('Voy a pintar la receta: ', recipe);
-	
 	
 	var aItem = $('<a class="item-recipe" href="#"></a>');
 
@@ -52,7 +50,7 @@ function renderHighlightedRecipes(recipesArray) {
 	
 	imgUrl.attr('src', 'img/recipes/320x350/' + recipe.name + '.jpg');
 
-	///pinta en pantalla las etiquetas
+	
 	aItem.append(spanAttr);
 	spanAttr.append(spanTitle);
 	spanAttr.append(spanMeta);
@@ -61,6 +59,43 @@ function renderHighlightedRecipes(recipesArray) {
 	spanBook.append(spanIcon);
 	aItem.append(imgUrl);
 
-	//div con los elementos
+	
 	$('.list-recipes').append(aItem);
+}
+
+function renderActivities(activitiesArray) {
+	console.log('Activities: ', activitiesArray);
+	
+	for ( var i = 0; i < activitiesArray.length; i++ ) {	
+		renderActivity(activitiesArray[i]);
+	}
+	if( activitiesArray.length > 0 ) {	
+		$('div.wrapper-message').hide();	
+	}
+}
+
+function renderActivity(activity) {
+	console.log('Voy a pintar la actividad: ', activity);
+
+	var template = '<a href="#" class="item-activity">' +
+		'<span class="attribution">' +
+			'<span class="avatar">' +
+				'<img src="<%= userAvatar %>" class="image-avatar">' +
+			'</span>' +
+			'<span class="meta">' +
+				'<span class="author"> <%= userName %> </span> made' +
+				'<span class="recipe"> <%= recipeName %> </span>: ' +  
+				'<span class="location"> <%= place %> </span>' +
+			'</span>' +
+		'</span>' +
+		'<div class="bg-image" style="background-image: url(&quot;<%= image %>&quot;)"></div>' +
+	'</a>';
+
+	var compiled = _.template(template);
+
+	var a = compiled(activity);
+	console.log(template);
+
+	var elemento = $(a);
+	$('.list-activities').append(elemento);
 }
